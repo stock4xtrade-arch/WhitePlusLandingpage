@@ -8,7 +8,8 @@ const DEMO = "/media/whiteplus-demo.mp4";
 const POSTER = "/media/whiteplus-demo-poster.jpg";
 
 /**
- * Pinned to the viewport like the WhatsApp button — the page scrolls behind it.
+ * Pinned to the viewport and stacked directly above the WhatsApp button — the page scrolls
+ * behind it. Keep the two offsets in sync if either size changes.
  */
 export function VideoTeaser() {
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
@@ -27,7 +28,7 @@ export function VideoTeaser() {
         type="button"
         onClick={() => setIsPlayerOpen(true)}
         aria-label="Play the WhitePlus Solution platform demo video"
-        className="group fixed bottom-5 left-5 z-40 block w-24 cursor-pointer overflow-hidden rounded-2xl border border-white/20 bg-navy-800 shadow-2xl shadow-navy-950/40 transition-transform duration-200 hover:scale-[1.04] active:scale-[0.98] sm:w-28"
+        className="group fixed bottom-24 right-5 z-40 block w-24 cursor-pointer overflow-hidden rounded-2xl border border-white/20 bg-navy-800 shadow-2xl shadow-navy-950/40 transition-transform duration-200 hover:scale-[1.04] active:scale-[0.98] sm:w-28"
       >
         <video
           ref={teaserRef}
