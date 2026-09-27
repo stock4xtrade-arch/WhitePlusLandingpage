@@ -17,11 +17,10 @@ export const navLinks = [
 ];
 
 export const hero = {
-  eyebrow: "Explore Software",
-  badge: "Best Trading Software",
+  badge: "White-Label Trading Platform",
   kicker: "Power. Speed. Precision.",
-  title: "Trade Without Limits",
-  subtitle: "Institutional power. Zero latency.",
+  title: "Launch Your Own Trading Brand",
+  subtitle: "Your brand, our infrastructure. Live in one week.",
   primaryCta: "Explore Our Platform",
   secondaryCta: "Contact Us",
   metrics: [
