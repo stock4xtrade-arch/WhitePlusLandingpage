@@ -35,19 +35,19 @@ function renderBlock(block: Block, index: number) {
   switch (block.type) {
     case "h2":
       return (
-        <h2 key={index} className="mt-12 text-2xl font-bold leading-snug text-navy-900">
+        <h2 key={index} className="mt-12 text-[1.6rem] font-medium leading-snug text-ink">
           {block.text}
         </h2>
       );
     case "h3":
       return (
-        <h3 key={index} className="mt-9 text-xl font-semibold leading-snug text-navy-900">
+        <h3 key={index} className="mt-9 text-xl font-medium leading-snug text-ink">
           {block.text}
         </h3>
       );
     case "h4":
       return (
-        <h4 key={index} className="mt-7 text-lg font-semibold leading-snug text-brand-700">
+        <h4 key={index} className="mt-7 text-[17px] font-medium leading-snug text-ink">
           {block.text}
         </h4>
       );
@@ -55,7 +55,7 @@ function renderBlock(block: Block, index: number) {
       return (
         <blockquote
           key={index}
-          className="mt-6 rounded-r-xl border-l-4 border-brand-600 bg-brand-50/60 px-5 py-4 text-navy-800"
+          className="mt-6 rounded-[18px] border border-line bg-surface-soft px-6 py-5 text-[15px] leading-relaxed text-ink-soft"
         >
           {block.text}
         </blockquote>
@@ -67,18 +67,18 @@ function renderBlock(block: Block, index: number) {
         </li>
       ));
       return block.ordered ? (
-        <ol key={index} className="mt-4 list-decimal space-y-2 pl-6 text-ink-muted marker:text-brand-600">
+        <ol key={index} className="mt-4 list-decimal space-y-2 pl-5 text-[15px] leading-[1.7] text-ink-muted marker:text-ink-faint">
           {items}
         </ol>
       ) : (
-        <ul key={index} className="mt-4 list-disc space-y-2 pl-6 text-ink-muted marker:text-brand-600">
+        <ul key={index} className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-[1.7] text-ink-muted marker:text-ink-faint">
           {items}
         </ul>
       );
     }
     default:
       return (
-        <p key={index} className="mt-5 leading-[1.75] text-ink-muted">
+        <p key={index} className="mt-5 text-[15px] leading-[1.8] text-ink-muted">
           {block.text}
         </p>
       );
@@ -96,25 +96,26 @@ export default async function BlogPostPage({ params }: Params) {
   return (
     <>
       <article>
-        <header className="bg-navy-900 pb-14 pt-32 text-white">
-          <div className="container-page max-w-3xl">
+        <header className="p-2 sm:p-3">
+          <div className="rounded-[22px] bg-slate-ink px-6 py-16 text-white sm:px-12 sm:py-20">
+          <div className="mx-auto max-w-3xl">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-sm font-medium text-brand-300 transition-colors hover:text-brand-200"
+              className="inline-flex items-center gap-2 text-[13px] font-medium text-white/60 transition-colors hover:text-white"
             >
               <ArrowLeft className="size-4" aria-hidden="true" />
               All articles
             </Link>
 
             <p className="mt-6">
-              <span className="inline-block rounded-md bg-white/10 px-2.5 py-1 text-xs font-semibold text-brand-200">
+              <span className="inline-block rounded-full border border-white/12 px-3 py-1 text-[11px] font-medium text-white/65">
                 {post.category}
               </span>
             </p>
 
-            <h1 className="mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[2.75rem]">{post.title}</h1>
+            <h1 className="mt-4 text-[2rem] font-medium leading-[1.08] sm:text-[2.5rem] lg:text-[3rem]">{post.title}</h1>
 
-            <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-navy-300">
+            <ul className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-white/50">
               <li className="flex items-center gap-1.5">
                 <UserRound className="size-4" aria-hidden="true" />
                 {post.author}
@@ -129,15 +130,16 @@ export default async function BlogPostPage({ params }: Params) {
               </li>
             </ul>
           </div>
+          </div>
         </header>
 
-        <div className="bg-canvas py-14">
-          <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="py-16">
+          <div className="container-inner grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
             <div className="max-w-3xl">
               {headings.length > 2 ? (
-                <nav aria-label="Table of contents" className="rounded-2xl border border-line bg-white p-6 lg:hidden">
-                  <h2 className="text-sm font-semibold uppercase tracking-wider text-navy-900">On this page</h2>
-                  <ul className="mt-3 space-y-2 text-sm text-ink-muted">
+                <nav aria-label="Table of contents" className="rounded-[22px] border border-line bg-surface-soft p-6 lg:hidden">
+                  <h2 className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-faint">On this page</h2>
+                  <ul className="mt-3 space-y-2 text-[14px] text-ink-muted">
                     {headings.map((heading) => (
                       <li key={heading}>{heading}</li>
                     ))}
@@ -147,10 +149,10 @@ export default async function BlogPostPage({ params }: Params) {
 
               {post.blocks.map(renderBlock)}
 
-              <div className="mt-14 rounded-2xl border border-line bg-white p-6">
-                <p className="text-xs font-semibold uppercase tracking-wider text-brand-700">About the author</p>
-                <h2 className="mt-2 text-lg font-semibold text-navy-900">{post.author}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+              <div className="mt-14 rounded-[22px] border border-line bg-surface-soft p-7">
+                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-faint">About the author</p>
+                <h2 className="mt-3 text-[17px] font-medium text-ink">{post.author}</h2>
+                <p className="mt-2 text-[14px] leading-relaxed text-ink-muted">
                   {post.author} writes about brokerage technology, white-label trading platforms, CRM and risk
                   management for the WhitePlus Solution team.
                 </p>
@@ -158,18 +160,18 @@ export default async function BlogPostPage({ params }: Params) {
             </div>
 
             <aside className="lg:sticky lg:top-24 lg:self-start">
-              <div className="rounded-2xl border border-line bg-white p-6">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-navy-900">Recent blogs</h2>
+              <div className="rounded-[22px] border border-line bg-surface-soft p-7">
+                <h2 className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-faint">Recent blogs</h2>
                 <ul className="mt-4 space-y-4">
                   {related.map((item) => (
                     <li key={item.slug}>
                       <Link
                         href={`/blog/${item.slug}`}
-                        className="block text-sm font-medium leading-snug text-navy-800 transition-colors hover:text-brand-700"
+                        className="block text-[14px] font-medium leading-snug text-ink transition-colors hover:text-ink-muted"
                       >
                         {item.title}
                       </Link>
-                      <p className="mt-1 text-xs text-ink-muted">{item.date}</p>
+                      <p className="mt-1 text-[12px] text-ink-faint">{item.date}</p>
                     </li>
                   ))}
                 </ul>

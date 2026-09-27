@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Headset } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 
 import { ButtonLink } from "@/components/ui/button";
@@ -17,43 +17,39 @@ export function Faq() {
     );
 
   return (
-    <section id="faq" className="scroll-mt-24 border-t border-line bg-white py-20 sm:py-24">
-      <div className="container-page">
-        <SectionHeading eyebrow="Answers" title="Frequently" highlight="Asked Questions" />
+    <section id="faq" className="scroll-mt-28 border-t border-line-soft py-20 sm:py-28">
+      <div className="container-inner">
+        <SectionHeading eyebrow="Answers" title="Frequently Asked Questions" />
 
-        <div className="mx-auto mt-14 max-w-3xl space-y-3">
+        <div className="mt-14 border-t border-line">
           {faqs.map((faq, index) => {
             const isOpen = openIndexes.includes(index);
             return (
-              <div key={faq.question} className="overflow-hidden rounded-xl border border-line bg-canvas">
+              <div key={faq.question} className="border-b border-line">
                 <h3>
                   <button
                     type="button"
                     onClick={() => toggle(index)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${index}`}
-                    className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left transition-colors duration-200 hover:bg-brand-50/60"
+                    className="flex w-full cursor-pointer items-center justify-between gap-6 py-5 text-left transition-colors duration-200 hover:text-ink-muted"
                   >
-                    <span className="text-base font-semibold text-navy-900">{faq.question}</span>
-                    <ChevronDown
+                    <span className="text-[16px] font-medium text-ink sm:text-[17px]">{faq.question}</span>
+                    <Plus
                       aria-hidden="true"
-                      className={`size-5 shrink-0 text-brand-700 transition-transform duration-200 ${
-                        isOpen ? "rotate-180" : ""
+                      className={`size-4 shrink-0 text-ink-faint transition-transform duration-200 ${
+                        isOpen ? "rotate-45" : ""
                       }`}
                     />
                   </button>
                 </h3>
-                <div
-                  id={`faq-panel-${index}`}
-                  hidden={!isOpen}
-                  className="border-t border-line bg-white px-5 py-4"
-                >
-                  <p className="text-sm leading-relaxed text-ink-muted">{faq.answer}</p>
+                <div id={`faq-panel-${index}`} hidden={!isOpen} className="pb-6 pr-10">
+                  <p className="max-w-2xl text-[15px] leading-[1.7] text-ink-muted">{faq.answer}</p>
                   {faq.items ? (
-                    <ul className="mt-3 grid gap-1.5 sm:grid-cols-2">
+                    <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:max-w-2xl">
                       {faq.items.map((item) => (
-                        <li key={item} className="flex items-center gap-2 text-sm text-navy-800">
-                          <span className="size-1.5 shrink-0 rounded-full bg-brand-600" aria-hidden="true" />
+                        <li key={item} className="flex items-center gap-2.5 text-[14px] text-ink-soft">
+                          <span className="size-1 shrink-0 rounded-full bg-ink-faint" aria-hidden="true" />
                           {item}
                         </li>
                       ))}
@@ -65,15 +61,12 @@ export function Faq() {
           })}
         </div>
 
-        <div className="mx-auto mt-14 flex max-w-3xl flex-col items-center gap-5 rounded-2xl border border-line bg-canvas px-6 py-10 text-center sm:flex-row sm:text-left">
-          <span className="inline-flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand-700 text-white">
-            <Headset className="size-6" aria-hidden="true" strokeWidth={1.75} />
-          </span>
-          <div className="flex-1">
-            <h3 className="text-xl font-bold text-navy-900">{support.title}</h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{support.body}</p>
+        <div className="mt-12 flex flex-col gap-6 rounded-[22px] border border-line bg-surface-soft p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
+          <div>
+            <h3 className="text-xl font-medium text-ink">{support.title}</h3>
+            <p className="mt-2 max-w-md text-[15px] leading-relaxed text-ink-muted">{support.body}</p>
           </div>
-          <ButtonLink href="#contact" size="lg" className="w-full sm:w-auto">
+          <ButtonLink href="#contact" size="lg" className="shrink-0">
             {support.cta}
           </ButtonLink>
         </div>

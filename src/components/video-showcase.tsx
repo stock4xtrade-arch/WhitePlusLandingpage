@@ -28,7 +28,7 @@ export function VideoTeaser() {
         type="button"
         onClick={() => setIsPlayerOpen(true)}
         aria-label="Play the WhitePlus Solution platform demo video"
-        className="group fixed bottom-24 right-5 z-40 block w-24 cursor-pointer overflow-hidden rounded-2xl border border-white/20 bg-navy-800 shadow-2xl shadow-navy-950/40 transition-transform duration-200 hover:scale-[1.04] active:scale-[0.98] sm:w-28"
+        className="group fixed bottom-24 right-5 z-40 block w-24 cursor-pointer overflow-hidden rounded-[18px] border border-ink/10 bg-slate-ink shadow-lg shadow-ink/15 transition-transform duration-200 hover:scale-[1.04] active:scale-[0.98] sm:w-28"
       >
         <video
           ref={teaserRef}
@@ -44,11 +44,11 @@ export function VideoTeaser() {
           className="aspect-9/16 size-full object-cover"
         />
         <span
-          className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"
           aria-hidden="true"
         />
         <span
-          className="absolute left-1/2 top-1/2 inline-flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-navy-900 transition-transform duration-200 group-hover:scale-110"
+          className="absolute left-1/2 top-1/2 inline-flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink transition-transform duration-200 group-hover:scale-110"
           aria-hidden="true"
         >
           <Play className="ml-0.5 size-4 fill-current" />
@@ -93,7 +93,7 @@ function VideoPlayer({ onClose }: { onClose: () => void }) {
         type="button"
         aria-label="Close video"
         onClick={onClose}
-        className="absolute inset-0 cursor-default bg-navy-950/85 backdrop-blur-sm"
+        className="absolute inset-0 cursor-default bg-ink/90 backdrop-blur-sm"
       />
 
       <button
@@ -113,7 +113,7 @@ function VideoPlayer({ onClose }: { onClose: () => void }) {
         autoPlay
         playsInline
         preload="auto"
-        className="relative max-h-[86vh] w-auto max-w-full rounded-2xl bg-black shadow-2xl"
+        className="relative max-h-[86vh] w-auto max-w-full rounded-[18px] bg-black"
       />
     </div>
   );

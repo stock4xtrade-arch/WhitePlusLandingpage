@@ -1,7 +1,5 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-
 import { useContact } from "@/components/contact-provider";
 import { Button } from "@/components/ui/button";
 import { PhoneChart, PhoneWatch } from "@/components/ui/mockups";
@@ -12,43 +10,49 @@ export function UpgradeCta() {
   const track = [...trustedBy, ...trustedBy, ...trustedBy];
 
   return (
-    <section className="overflow-hidden bg-navy-900 py-20 text-white sm:py-24">
-      <div className="container-page grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
-            Ready to Upgrade <span className="text-gradient-brand">Your Trading?</span>
-          </h2>
-          <p className="mt-5 max-w-lg leading-relaxed text-navy-300">{upgradeCta.body}</p>
-          <Button size="lg" variant="light" className="mt-8" onClick={open}>
-            {upgradeCta.cta}
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </Button>
-        </div>
-
-        <div className="flex items-center justify-center gap-5">
-          <PhoneWatch />
-          <div className="hidden sm:block sm:-translate-y-6">
-            <PhoneChart />
+    <>
+      {/* Muted partner strip, mirroring the reference's "backed by" row. */}
+      <section className="border-y border-line-soft py-10" aria-label="Markets we connect to">
+        <div className="container-inner flex items-center gap-8">
+          <p className="hidden w-32 shrink-0 text-[12px] leading-snug text-ink-faint sm:block">Trusted by</p>
+          <div className="min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+            <ul className="flex w-max animate-marquee items-center gap-14">
+              {track.map((market, index) => (
+                <li
+                  key={`${market}-${index}`}
+                  aria-hidden={index >= trustedBy.length}
+                  className="whitespace-nowrap font-display text-[15px] font-medium tracking-tight text-ink-faint"
+                >
+                  {market}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="container-page mt-16">
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.22em] text-navy-400">Trusted by</p>
-        <div className="mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-          <ul className="flex w-max animate-marquee gap-10">
-            {track.map((market, index) => (
-              <li
-                key={`${market}-${index}`}
-                aria-hidden={index >= trustedBy.length}
-                className="whitespace-nowrap font-display text-lg font-semibold text-navy-400"
-              >
-                {market}
-              </li>
-            ))}
-          </ul>
+      <section className="p-2 sm:p-3">
+        <div className="overflow-hidden rounded-[22px] bg-slate-ink">
+          <div className="container-inner grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <h2 className="max-w-lg text-[2rem] font-medium leading-[1.05] text-white sm:text-[2.75rem]">
+                {upgradeCta.title}
+              </h2>
+              <p className="mt-5 max-w-lg text-[15px] leading-[1.7] text-white/55">{upgradeCta.body}</p>
+              <Button variant="light" size="lg" className="mt-9" onClick={open}>
+                {upgradeCta.cta}
+              </Button>
+            </div>
+
+            <div className="flex items-end justify-center gap-5 sm:justify-end">
+              <div className="hidden translate-y-4 sm:block">
+                <PhoneWatch />
+              </div>
+              <PhoneChart />
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

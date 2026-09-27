@@ -315,8 +315,7 @@ export const footer = {
 
 export const contactSection = {
   eyebrow: "Contact support",
-  title: "Talk to our",
-  highlight: "support team",
+  title: "Talk to our support team",
   subtitle:
     "Share a few details about your brokerage and our team will get back to you within one business day. Existing clients get 24x7 priority support.",
   topics: [

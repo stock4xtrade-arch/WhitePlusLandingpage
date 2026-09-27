@@ -33,12 +33,12 @@ function StatItem({ value, suffix, label, start }: { value: number; suffix: stri
   const count = useCountUp(value, start);
 
   return (
-    <div className="rounded-2xl border border-line bg-white px-6 py-8 text-center">
-      <p className="font-display text-4xl font-bold tabular-nums text-brand-700 sm:text-5xl">
+    <div className="rounded-[22px] border border-line bg-surface-soft px-7 py-10">
+      <p className="font-display text-[2.75rem] font-medium tabular-nums leading-none text-ink sm:text-[3.5rem]">
         {count}
         {suffix}
       </p>
-      <p className="mt-2 text-sm font-medium uppercase tracking-wider text-ink-muted">{label}</p>
+      <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.14em] text-ink-faint">{label}</p>
     </div>
   );
 }
@@ -64,8 +64,8 @@ export function Stats() {
   }, []);
 
   return (
-    <section id="stats" className="scroll-mt-24 bg-canvas py-20 sm:py-24">
-      <div ref={ref} className="container-page grid gap-4 sm:grid-cols-3">
+    <section id="stats" className="scroll-mt-28 py-20 sm:py-28">
+      <div ref={ref} className="container-inner grid gap-2.5 sm:grid-cols-3">
         {stats.map((stat) => (
           <StatItem key={stat.label} {...stat} start={isVisible} />
         ))}

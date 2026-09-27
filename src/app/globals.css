@@ -1,47 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette — premium blue / white fintech */
-  --color-navy-50: #f5f8fc;
-  --color-navy-100: #e8eef6;
-  --color-navy-200: #cbd9ea;
-  --color-navy-300: #9db4d3;
-  --color-navy-400: #6884ab;
-  --color-navy-500: #41597f;
-  --color-navy-600: #2a3d5c;
-  --color-navy-700: #1c2b45;
-  --color-navy-800: #131f33;
-  --color-navy-900: #0f172a;
-  --color-navy-950: #070d18;
-
-  --color-brand-50: #eff8ff;
-  --color-brand-100: #dbeefe;
-  --color-brand-200: #bfe2fe;
-  --color-brand-300: #93d1fd;
-  --color-brand-400: #60b7fa;
-  --color-brand-500: #3b9bf6;
-  --color-brand-600: #227ceb;
-  --color-brand-700: #0369a1;
-  --color-brand-800: #08528a;
-  --color-brand-900: #0d4573;
-  --color-brand-950: #0a2c4b;
-
+  /* Neutral spine — the design is monochrome first, blue only as an accent. */
+  --color-canvas: #eef0f3;
   --color-surface: #ffffff;
-  --color-canvas: #f8fafc;
-  --color-ink: #020617;
-  --color-ink-muted: #475569;
-  --color-line: #e2e8f0;
+  --color-surface-soft: #f7f8fa;
+  --color-ink: #14161b;
+  --color-ink-soft: #3a3f4b;
+  --color-ink-muted: #6b7280;
+  --color-ink-faint: #9aa0ad;
+  --color-line: #e6e8ec;
+  --color-line-soft: #f0f1f4;
 
-  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  /* Dark surfaces */
+  --color-slate-ink: #191c24;
+  --color-slate-ink-soft: #232732;
+  --color-slate-line: #2f3440;
+
+  --color-brand-50: #eff5ff;
+  --color-brand-100: #dbe8fe;
+  --color-brand-200: #c0d8fd;
+  --color-brand-300: #93bffb;
+  --color-brand-400: #609df7;
+  --color-brand-500: #3b7cf2;
+  --color-brand-600: #265fe3;
+  --color-brand-700: #1d4bc4;
+  --color-brand-800: #1d3f9e;
+  --color-brand-900: #1d387d;
+
+  --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-
-  --radius-card: 1rem;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6.5rem;
   }
 
   body {
@@ -56,42 +50,50 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    font-weight: 500;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-700);
+    outline: 2px solid var(--color-ink);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
 }
 
 @layer utilities {
+  /* Outer gutter — the whole site sits on an inset sheet, like the reference layout. */
   .container-page {
     width: 100%;
-    max-width: 80rem;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  .container-inner {
+    width: 100%;
+    max-width: 78rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
 
-  @media (min-width: 1024px) {
-    .container-page {
-      padding-inline: 2rem;
+  @media (min-width: 768px) {
+    .container-inner {
+      padding-inline: 2.5rem;
     }
-  }
-
-  .text-gradient-brand {
-    background-image: linear-gradient(100deg, var(--color-brand-600), var(--color-brand-300));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
   }
 
   .grid-backdrop {
     background-image:
-      linear-gradient(to right, rgba(148, 163, 184, 0.16) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(148, 163, 184, 0.16) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
   }
 }
 
@@ -105,7 +107,7 @@
 }
 
 .animate-marquee {
-  animation: marquee-x 32s linear infinite;
+  animation: marquee-x 38s linear infinite;
 }
 
 .animate-marquee:hover {

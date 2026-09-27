@@ -48,42 +48,42 @@ function ContactDialogContent() {
         type="button"
         aria-label="Close dialog"
         onClick={close}
-        className="absolute inset-0 cursor-default bg-navy-950/60 backdrop-blur-sm"
+        className="absolute inset-0 cursor-default bg-ink/45 backdrop-blur-sm"
       />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="contact-title"
-        className="relative w-full max-w-md rounded-t-2xl bg-white p-6 shadow-2xl sm:rounded-2xl"
+        className="relative w-full max-w-md rounded-t-[22px] border border-line bg-surface p-6 sm:rounded-[22px]"
       >
         <button
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center rounded-lg text-navy-500 transition-colors hover:bg-navy-100 hover:text-navy-900"
+          className="absolute right-3 top-3 inline-flex size-11 cursor-pointer items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-surface-soft hover:text-ink"
         >
           <X className="size-5" aria-hidden="true" />
         </button>
 
         {state?.ok ? (
           <div className="py-6 text-center" role="status" aria-live="polite">
-            <CheckCircle2 className="mx-auto size-12 text-brand-700" aria-hidden="true" />
-            <h2 id="contact-title" className="mt-4 text-xl font-bold text-navy-900">
+            <CheckCircle2 className="mx-auto size-11 text-ink" aria-hidden="true" strokeWidth={1.5} />
+            <h2 id="contact-title" className="mt-4 text-xl font-medium text-ink">
               Request received
             </h2>
-            <p className="mt-2 text-sm text-ink-muted">
+            <p className="mt-2 text-[14px] text-ink-muted">
               Thanks — our team will reach out within one business day to set up your {site.name} demo.
             </p>
-            <Button variant="secondary" className="mt-6 w-full" onClick={close}>
+            <Button className="mt-6 w-full" onClick={close}>
               Done
             </Button>
           </div>
         ) : (
           <>
-            <h2 id="contact-title" className="pr-10 text-xl font-bold text-navy-900">
+            <h2 id="contact-title" className="pr-10 text-xl font-medium text-ink">
               {contactForm.title}
             </h2>
-            <p className="mt-1 text-sm text-ink-muted">{contactForm.body}</p>
+            <p className="mt-1 text-[14px] text-ink-muted">{contactForm.body}</p>
 
             <form action={action} className="mt-5 space-y-4" noValidate>
               <input type="hidden" name="source" value="quick-modal" />
@@ -91,9 +91,9 @@ function ContactDialogContent() {
                 <div key={field.key}>
                   <label
                     htmlFor={`contact-${field.key}`}
-                    className="mb-1.5 block text-sm font-medium text-navy-800"
+                    className="mb-2 block text-[13px] font-medium text-ink-soft"
                   >
-                    {field.label} <span className="text-brand-700">*</span>
+                    {field.label} <span className="text-ink-faint">*</span>
                   </label>
                   <input
                     ref={field.key === "name" ? firstFieldRef : undefined}
@@ -105,15 +105,15 @@ function ContactDialogContent() {
                     placeholder={field.placeholder}
                     aria-invalid={Boolean(errors[field.key])}
                     aria-describedby={errors[field.key] ? `contact-${field.key}-error` : undefined}
-                    className={`min-h-11 w-full rounded-xl border bg-white px-4 text-base text-navy-900 transition-colors placeholder:text-navy-400 ${
-                      errors[field.key] ? "border-red-500" : "border-line focus:border-brand-600"
+                    className={`min-h-11 w-full rounded-xl border bg-surface px-4 text-[15px] text-ink transition-colors placeholder:text-ink-faint ${
+                      errors[field.key] ? "border-rose-400" : "border-line focus:border-ink/30"
                     }`}
                   />
                   {errors[field.key] ? (
                     <p
                       id={`contact-${field.key}-error`}
                       role="alert"
-                      className="mt-1.5 text-sm text-red-600"
+                      className="mt-1.5 text-[13px] text-rose-600"
                     >
                       {errors[field.key]}
                     </p>
@@ -126,7 +126,7 @@ function ContactDialogContent() {
               </Button>
             </form>
 
-            <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-ink-muted">
+            <p className="mt-4 flex items-center justify-center gap-1.5 text-[12px] text-ink-faint">
               <Lock className="size-3.5" aria-hidden="true" />
               {contactForm.note}
             </p>

@@ -11,12 +11,12 @@ import { contactSection, site } from "@/content/site";
 import type { LeadResult } from "@/lib/leads";
 
 const fieldClass =
-  "min-h-11 w-full rounded-xl border bg-white px-4 text-base text-navy-900 transition-colors placeholder:text-navy-400 focus:border-brand-600";
+  "min-h-11 w-full rounded-xl border bg-surface px-4 text-[15px] text-ink transition-colors placeholder:text-ink-faint focus:border-ink/30";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-1.5 text-sm text-red-600">
+    <p id={id} role="alert" className="mt-1.5 text-[13px] text-rose-600">
       {message}
     </p>
   );
@@ -27,27 +27,26 @@ export function Contact() {
   const errors = state && !state.ok ? state.errors : {};
 
   return (
-    <section id="contact" className="scroll-mt-24 border-t border-line bg-canvas py-20 sm:py-24">
-      <div className="container-page">
+    <section id="contact" className="scroll-mt-28 border-t border-line-soft py-20 sm:py-28">
+      <div className="container-inner">
         <SectionHeading
           eyebrow={contactSection.eyebrow}
           title={contactSection.title}
-          highlight={contactSection.highlight}
-          subtitle={contactSection.subtitle}
+          description={contactSection.subtitle}
         />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
-          <div className="space-y-4">
+        <div className="mt-14 grid gap-2.5 lg:grid-cols-[1fr_1.4fr]">
+          <div className="space-y-2.5">
             <a
               href={`mailto:${site.email}`}
-              className="flex items-start gap-4 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-brand-300"
+              className="flex items-start gap-4 rounded-[18px] border border-line bg-surface-soft p-5 transition-colors hover:border-ink/20"
             >
-              <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
-                <Mail className="size-5" aria-hidden="true" strokeWidth={1.75} />
+              <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface text-ink ring-1 ring-line">
+                <Mail className="size-[18px]" aria-hidden="true" strokeWidth={1.75} />
               </span>
               <span>
-                <span className="block text-sm font-semibold text-navy-900">Email us</span>
-                <span className="mt-0.5 block text-sm text-ink-muted">{site.email}</span>
+                <span className="block text-[14px] font-medium text-ink">Email us</span>
+                <span className="mt-0.5 block text-[13px] text-ink-muted">{site.email}</span>
               </span>
             </a>
 
@@ -55,39 +54,39 @@ export function Contact() {
               href={site.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-4 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-brand-300"
+              className="flex items-start gap-4 rounded-[18px] border border-line bg-surface-soft p-5 transition-colors hover:border-ink/20"
             >
-              <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
-                <MessageCircle className="size-5" aria-hidden="true" strokeWidth={1.75} />
+              <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface text-ink ring-1 ring-line">
+                <MessageCircle className="size-[18px]" aria-hidden="true" strokeWidth={1.75} />
               </span>
               <span>
-                <span className="block text-sm font-semibold text-navy-900">WhatsApp</span>
-                <span className="mt-0.5 block text-sm text-ink-muted">Chat with a specialist now</span>
+                <span className="block text-[14px] font-medium text-ink">WhatsApp</span>
+                <span className="mt-0.5 block text-[13px] text-ink-muted">Chat with a specialist now</span>
               </span>
             </a>
 
             {contactSection.channels.map((channel) => (
               <div
                 key={channel.label}
-                className="flex items-start gap-4 rounded-2xl border border-line bg-white p-5"
+                className="flex items-start gap-4 rounded-[18px] border border-line bg-surface-soft p-5"
               >
-                <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
-                  <Icon name={channel.icon as IconName} className="size-5" />
+                <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface text-ink ring-1 ring-line">
+                  <Icon name={channel.icon as IconName} className="size-[18px]" />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-navy-900">{channel.label}</p>
-                  <p className="mt-0.5 text-sm text-ink-muted">{channel.value}</p>
+                  <p className="text-[14px] font-medium text-ink">{channel.label}</p>
+                  <p className="mt-0.5 text-[13px] text-ink-muted">{channel.value}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="rounded-2xl border border-line bg-white p-6 sm:p-8">
+          <div className="rounded-[22px] border border-line bg-surface-soft p-6 sm:p-9">
             {state?.ok ? (
               <div className="flex flex-col items-center py-12 text-center" role="status" aria-live="polite">
-                <CheckCircle2 className="size-14 text-brand-700" aria-hidden="true" />
-                <h3 className="mt-5 text-xl font-bold text-navy-900">Message sent</h3>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink-muted">
+                <CheckCircle2 className="size-12 text-ink" aria-hidden="true" strokeWidth={1.5} />
+                <h3 className="mt-5 text-xl font-medium text-ink">Message sent</h3>
+                <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-ink-muted">
                   Thanks for reaching out. Our support team will reply within one business day.
                 </p>
               </div>
@@ -97,8 +96,8 @@ export function Contact() {
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="support-name" className="mb-1.5 block text-sm font-medium text-navy-800">
-                      Full Name <span className="text-brand-700">*</span>
+                    <label htmlFor="support-name" className="mb-2 block text-[13px] font-medium text-ink-soft">
+                      Full Name <span className="text-ink-faint">*</span>
                     </label>
                     <input
                       id="support-name"
@@ -109,13 +108,13 @@ export function Contact() {
                       placeholder="Jane Cooper"
                       aria-invalid={Boolean(errors.name)}
                       aria-describedby={errors.name ? "support-name-error" : undefined}
-                      className={`${fieldClass} ${errors.name ? "border-red-500" : "border-line"}`}
+                      className={`${fieldClass} ${errors.name ? "border-rose-400" : "border-line"}`}
                     />
                     <FieldError id="support-name-error" message={errors.name} />
                   </div>
 
                   <div>
-                    <label htmlFor="support-company" className="mb-1.5 block text-sm font-medium text-navy-800">
+                    <label htmlFor="support-company" className="mb-2 block text-[13px] font-medium text-ink-soft">
                       Company
                     </label>
                     <input
@@ -129,8 +128,8 @@ export function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="support-email" className="mb-1.5 block text-sm font-medium text-navy-800">
-                      Email Address <span className="text-brand-700">*</span>
+                    <label htmlFor="support-email" className="mb-2 block text-[13px] font-medium text-ink-soft">
+                      Email Address <span className="text-ink-faint">*</span>
                     </label>
                     <input
                       id="support-email"
@@ -141,14 +140,14 @@ export function Contact() {
                       placeholder="jane@brokerage.com"
                       aria-invalid={Boolean(errors.email)}
                       aria-describedby={errors.email ? "support-email-error" : undefined}
-                      className={`${fieldClass} ${errors.email ? "border-red-500" : "border-line"}`}
+                      className={`${fieldClass} ${errors.email ? "border-rose-400" : "border-line"}`}
                     />
                     <FieldError id="support-email-error" message={errors.email} />
                   </div>
 
                   <div>
-                    <label htmlFor="support-phone" className="mb-1.5 block text-sm font-medium text-navy-800">
-                      Phone Number <span className="text-brand-700">*</span>
+                    <label htmlFor="support-phone" className="mb-2 block text-[13px] font-medium text-ink-soft">
+                      Phone Number <span className="text-ink-faint">*</span>
                     </label>
                     <input
                       id="support-phone"
@@ -159,14 +158,14 @@ export function Contact() {
                       placeholder="+91 98765 43210"
                       aria-invalid={Boolean(errors.phone)}
                       aria-describedby={errors.phone ? "support-phone-error" : undefined}
-                      className={`${fieldClass} ${errors.phone ? "border-red-500" : "border-line"}`}
+                      className={`${fieldClass} ${errors.phone ? "border-rose-400" : "border-line"}`}
                     />
                     <FieldError id="support-phone-error" message={errors.phone} />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="support-topic" className="mb-1.5 block text-sm font-medium text-navy-800">
+                  <label htmlFor="support-topic" className="mb-2 block text-[13px] font-medium text-ink-soft">
                     How can we help?
                   </label>
                   <select
@@ -184,8 +183,8 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="support-message" className="mb-1.5 block text-sm font-medium text-navy-800">
-                    Message <span className="text-brand-700">*</span>
+                  <label htmlFor="support-message" className="mb-2 block text-[13px] font-medium text-ink-soft">
+                    Message <span className="text-ink-faint">*</span>
                   </label>
                   <textarea
                     id="support-message"
@@ -197,14 +196,14 @@ export function Contact() {
                     aria-describedby={
                       errors.message ? "support-message-error" : "support-message-helper"
                     }
-                    className={`w-full rounded-xl border bg-white px-4 py-3 text-base leading-relaxed text-navy-900 transition-colors placeholder:text-navy-400 focus:border-brand-600 ${
-                      errors.message ? "border-red-500" : "border-line"
+                    className={`w-full rounded-xl border bg-surface px-4 py-3 text-[15px] leading-relaxed text-ink transition-colors placeholder:text-ink-faint focus:border-ink/30 ${
+                      errors.message ? "border-rose-400" : "border-line"
                     }`}
                   />
                   {errors.message ? (
                     <FieldError id="support-message-error" message={errors.message} />
                   ) : (
-                    <p id="support-message-helper" className="mt-1.5 text-sm text-ink-muted">
+                    <p id="support-message-helper" className="mt-1.5 text-[13px] text-ink-faint">
                       The more context you give, the faster we can help.
                     </p>
                   )}
@@ -214,7 +213,7 @@ export function Contact() {
                   <Button type="submit" size="lg" disabled={pending} className="w-full sm:w-auto">
                     {pending ? "Sending…" : contactSection.submit}
                   </Button>
-                  <p className="flex items-center gap-1.5 text-xs text-ink-muted">
+                  <p className="flex items-center gap-1.5 text-[12px] text-ink-faint">
                     <Lock className="size-3.5" aria-hidden="true" />
                     {contactSection.note}
                   </p>

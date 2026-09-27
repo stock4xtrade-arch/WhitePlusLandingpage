@@ -1,37 +1,45 @@
+/**
+ * Editorial split heading: oversized title on the left, supporting copy on the right.
+ */
 export function SectionHeading({
   eyebrow,
   title,
-  highlight,
-  subtitle,
-  align = "center",
+  description,
+  action,
   tone = "light",
+  className = "",
 }: {
   eyebrow?: string;
   title: string;
-  highlight?: string;
-  subtitle?: string;
-  align?: "center" | "left";
+  description?: string;
+  action?: React.ReactNode;
   tone?: "light" | "dark";
+  className?: string;
 }) {
-  const alignment = align === "center" ? "text-center mx-auto" : "text-left";
-  const titleColor = tone === "dark" ? "text-white" : "text-navy-900";
-  const subColor = tone === "dark" ? "text-navy-300" : "text-ink-muted";
+  const titleColor = tone === "dark" ? "text-white" : "text-ink";
+  const descColor = tone === "dark" ? "text-white/60" : "text-ink-muted";
+  const eyebrowColor = tone === "dark" ? "text-white/45" : "text-ink-faint";
+
+  // Without supporting copy the split layout leaves a dead column, so collapse to one.
+  const columns = description ? "lg:grid-cols-[1.05fr_1fr] lg:items-end lg:gap-16" : "max-w-3xl";
 
   return (
-    <div className={`max-w-2xl ${alignment}`}>
-      {eyebrow ? (
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">{eyebrow}</p>
-      ) : null}
-      <h2 className={`text-3xl font-bold leading-tight sm:text-4xl ${titleColor}`}>
-        {title}
-        {highlight ? (
-          <>
-            {" "}
-            <span className="text-gradient-brand">{highlight}</span>
-          </>
+    <div className={`grid gap-6 ${columns} ${className}`}>
+      <div>
+        {eyebrow ? (
+          <p className={`mb-4 text-[11px] font-medium uppercase tracking-[0.16em] ${eyebrowColor}`}>
+            {eyebrow}
+          </p>
         ) : null}
-      </h2>
-      {subtitle ? <p className={`mt-4 text-base leading-relaxed ${subColor}`}>{subtitle}</p> : null}
+        <h2 className={`text-[2rem] leading-[1.05] sm:text-[2.75rem] lg:text-[3.25rem] ${titleColor}`}>
+          {title}
+        </h2>
+        {action ? <div className="mt-6">{action}</div> : null}
+      </div>
+
+      {description ? (
+        <p className={`max-w-lg text-[15px] leading-[1.65] sm:text-base ${descColor}`}>{description}</p>
+      ) : null}
     </div>
   );
 }

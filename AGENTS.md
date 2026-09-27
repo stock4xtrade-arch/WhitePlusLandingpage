@@ -51,16 +51,25 @@ changes. Credentials go in `.env.local` / Vercel env vars, never in the repo.
 
 ## Design system
 
-Premium blue/white fintech. Tokens live in the `@theme` block of `src/app/globals.css`
-(Tailwind v4 has no `tailwind.config`):
+Minimal, monochrome-first editorial layout. Tokens live in the `@theme` block of
+`src/app/globals.css` (Tailwind v4 has no `tailwind.config`):
 
-- `navy-*` for dark surfaces (hero, footer, dark sections), `brand-*` for accents/CTAs
-- `canvas` page background, `surface` white, `line` borders, `ink` / `ink-muted` text
-- Fonts: Sora (`--font-display`, headings) + Inter (`--font-sans`, body), via `next/font`
+- `canvas` is the outer gutter; the whole site sits on an inset white sheet rendered in
+  `app/layout.tsx` (`rounded-[28px] bg-surface`)
+- Light surfaces: `surface` (white) and `surface-soft` (card fill), hairlines `line` / `line-soft`
+- Text ramp: `ink` → `ink-soft` → `ink-muted` → `ink-faint`
+- Dark blocks: `slate-ink`, `slate-ink-soft`, `slate-line` — used as inset rounded cards
+  (hero, Advantages, upgrade CTA, blog headers), never as full-bleed sections
+- `brand-*` exists but is deliberately barely used; the primary button is the dark `ink` pill
+- Fonts: Inter Tight (`--font-display`, headings, weight 500) + Inter (`--font-sans`, body)
 
-Conventions: every page opens with a dark hero, so the fixed navbar swaps to light text while
-transparent. Minimum touch target 44px (`min-h-11`), `cursor-pointer` on all clickables, SVG icons
-only (never emoji), and `prefers-reduced-motion` is honoured in `globals.css` and the stat counter.
+Conventions: radii are `rounded-[22px]` for cards and `rounded-full` for buttons; dark cards are
+wrapped in a `p-2 sm:p-3` section so they inset from the sheet edge. Almost no shadows — depth
+comes from hairline borders and `surface-soft` fills. Headings use `SectionHeading`, which splits
+into title-left / description-right and collapses to one column when there is no description.
+
+Minimum touch target 44px (`min-h-11`), `cursor-pointer` on all clickables, SVG icons only (never
+emoji), and `prefers-reduced-motion` is honoured in `globals.css` and the stat counter.
 
 ## Lint gotchas (React Compiler rules in eslint-config-next 16)
 

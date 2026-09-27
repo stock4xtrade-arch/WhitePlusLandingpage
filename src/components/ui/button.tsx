@@ -1,21 +1,23 @@
 import Link from "next/link";
 
-type Variant = "primary" | "secondary" | "ghost" | "light";
-type Size = "md" | "lg";
+type Variant = "primary" | "outline" | "light" | "ghost";
+type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-medium transition-colors duration-200 disabled:pointer-events-none disabled:opacity-45";
 
+// Monochrome first: the dark pill is the primary action, blue stays an accent.
 const variants: Record<Variant, string> = {
-  primary: "bg-brand-700 text-white hover:bg-brand-800 shadow-sm shadow-brand-700/20",
-  secondary: "bg-navy-900 text-white hover:bg-navy-800",
-  ghost: "border border-line bg-white text-navy-900 hover:border-brand-300 hover:bg-brand-50",
-  light: "bg-white text-navy-900 hover:bg-brand-50",
+  primary: "bg-ink text-white hover:bg-slate-ink-soft",
+  outline: "border border-line bg-surface text-ink hover:border-ink/25 hover:bg-surface-soft",
+  light: "bg-white text-ink hover:bg-white/90",
+  ghost: "border border-white/15 bg-white/5 text-white hover:bg-white/10",
 };
 
 const sizes: Record<Size, string> = {
+  sm: "min-h-9 px-4 text-[13px]",
   md: "min-h-11 px-5 text-sm",
-  lg: "min-h-13 px-7 text-base",
+  lg: "min-h-12 px-6 text-[15px]",
 };
 
 type CommonProps = {
