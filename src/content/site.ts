@@ -4,9 +4,17 @@ export const site = {
   description:
     "B2B trading platform for brokers: white-label web and mobile trading app with built-in CRM, risk management, option chain and multi-market access. Live in a week.",
   url: "https://whiteplussolution.com",
-  whatsapp: "https://wa.me/910000000000",
   email: "hello@whiteplussolution.com",
+
+  // Country code + number, digits only — no +, spaces or dashes. e.g. "919876543210"
+  whatsappNumber: "917290838017",
+  whatsappMessage: "Hi WhitePlus Solution, I'd like to know more about your white-label trading platform.",
 };
+
+/** wa.me link with the greeting pre-filled, so the first message already has context. */
+export const whatsappUrl = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
+  site.whatsappMessage,
+)}`;
 
 export const navLinks = [
   { label: "About", href: "/#about" },

@@ -1,9 +1,9 @@
-import { site } from "@/content/site";
+import { site, whatsappUrl } from "@/content/site";
 
 export function WhatsAppFab() {
   return (
     <a
-      href={site.whatsapp}
+      href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Chat with ${site.name} on WhatsApp`}

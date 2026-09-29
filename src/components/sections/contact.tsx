@@ -7,7 +7,7 @@ import { submitLead } from "@/app/actions";
 import { Icon, type IconName } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { contactSection, site } from "@/content/site";
+import { contactSection, site, whatsappUrl } from "@/content/site";
 import type { LeadResult } from "@/lib/leads";
 
 const fieldClass =
@@ -51,7 +51,7 @@ export function Contact() {
             </a>
 
             <a
-              href={site.whatsapp}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-start gap-4 rounded-[18px] border border-line bg-surface-soft p-5 transition-colors hover:border-ink/20"
