@@ -43,11 +43,24 @@ Copy changes belong in `src/content/*`, not in components.
 
 ## Leads / form handling
 
-Both forms post to the `submitLead` server action in `src/app/actions.ts`, which validates through
-`src/lib/leads.ts` and calls `deliverLead()`. **Email delivery is not wired up yet** —
-`deliverLead()` only logs to the server console. Add the provider there (Resend or SMTP via
-nodemailer; both run on Vercel, see the doc comment) and both forms start emailing with no UI
-changes. Credentials go in `.env.local` / Vercel env vars, never in the repo.
+The two forms deliberately behave differently:
+
+- **Support form** (`sections/contact.tsx`) validates on the client with `validateLead()` and then
+  opens `wa.me/<site.whatsappNumber>` in a new tab with the answers pre-formatted. Nothing reaches
+  the server. `window.open` runs inside the submit handler so it isn't treated as a popup, and the
+  confirmation panel keeps a visible fallback link for blocked popups / desktops without WhatsApp
+  Web. Caveat worth remembering: WhatsApp cannot auto-send — the visitor still has to press send,
+  so leads that stop there are lost and invisible to us.
+- **Quick modal** (`contact-dialog.tsx`) posts to the `submitLead` server action in
+  `src/app/actions.ts`, which validates through `src/lib/leads.ts` and calls `deliverLead()`.
+
+**Email delivery is not wired up yet** — `deliverLead()` only logs to the server console. Add the
+provider there (Resend or SMTP via nodemailer; both run on Vercel, see the doc comment).
+Credentials go in `.env.local` / Vercel env vars, never in the repo.
+
+WhatsApp contact details live in one place: `site.whatsappNumber` (digits only, with country code)
+and `site.whatsappMessage` in `src/content/site.ts`. The floating button and contact card use the
+`whatsappUrl` export; the support form builds its own message from the submitted fields.
 
 ## Design system
 

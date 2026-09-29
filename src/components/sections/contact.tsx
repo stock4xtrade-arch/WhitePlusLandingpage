@@ -1,14 +1,13 @@
 "use client";
 
 import { CheckCircle2, Lock, Mail, MessageCircle } from "lucide-react";
-import { useActionState } from "react";
+import { useState } from "react";
 
-import { submitLead } from "@/app/actions";
 import { Icon, type IconName } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { contactSection, site, whatsappUrl } from "@/content/site";
-import type { LeadResult } from "@/lib/leads";
+import { validateLead, type Lead } from "@/lib/leads";
 
 const fieldClass =
   "min-h-11 w-full rounded-xl border bg-surface px-4 text-[15px] text-ink transition-colors placeholder:text-ink-faint focus:border-ink/30";
@@ -22,9 +21,55 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
+/** Written in the visitor's voice — the message is sent from their own WhatsApp. */
+function buildWhatsAppMessage(lead: Lead) {
+  const lines = [
+    `Hi ${site.name}, I'd like to talk about: ${lead.topic}`,
+    "",
+    `Name: ${lead.name}`,
+    lead.company ? `Company: ${lead.company}` : null,
+    `Email: ${lead.email}`,
+    `Phone: ${lead.phone}`,
+    "",
+    lead.message,
+  ];
+  return lines.filter((line) => line !== null).join("\n");
+}
+
 export function Contact() {
-  const [state, action, pending] = useActionState<LeadResult | null, FormData>(submitLead, null);
-  const errors = state && !state.ok ? state.errors : {};
+  const [errors, setErrors] = useState<Partial<Record<keyof Lead, string>>>({});
+  const [chatUrl, setChatUrl] = useState<string | null>(null);
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const read = (key: string) => String(data.get(key) ?? "");
+
+    const lead: Lead = {
+      name: read("name"),
+      company: read("company"),
+      email: read("email"),
+      phone: read("phone"),
+      topic: read("topic") || contactSection.topics[0],
+      message: read("message"),
+      source: "support-form",
+    };
+
+    const nextErrors = validateLead(lead);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) {
+      const firstKey = Object.keys(nextErrors)[0];
+      document.getElementById(`support-${firstKey}`)?.focus();
+      return;
+    }
+
+    const url = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
+      buildWhatsAppMessage(lead),
+    )}`;
+    setChatUrl(url);
+    // Opened inside the submit gesture so browsers don't treat it as a popup.
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <section id="contact" className="scroll-mt-28 border-t border-line-soft py-20 sm:py-28">
@@ -82,17 +127,26 @@ export function Contact() {
           </div>
 
           <div className="rounded-[22px] border border-line bg-surface-soft p-6 sm:p-9">
-            {state?.ok ? (
+            {chatUrl ? (
               <div className="flex flex-col items-center py-12 text-center" role="status" aria-live="polite">
                 <CheckCircle2 className="size-12 text-ink" aria-hidden="true" strokeWidth={1.5} />
-                <h3 className="mt-5 text-xl font-medium text-ink">Message sent</h3>
+                <h3 className="mt-5 text-xl font-medium text-ink">WhatsApp is opening</h3>
                 <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-ink-muted">
-                  Thanks for reaching out. Our support team will reply within one business day.
+                  Your details are already typed out — just hit send in WhatsApp and our team will
+                  reply within one business day.
                 </p>
+                {/* Fallback for blocked popups or desktops without WhatsApp Web signed in. */}
+                <a
+                  href={chatUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-white transition-colors hover:bg-slate-ink-soft"
+                >
+                  Didn&apos;t open? Open WhatsApp
+                </a>
               </div>
             ) : (
-              <form action={action} className="space-y-5" noValidate>
-                <input type="hidden" name="source" value="support-form" />
+              <form onSubmit={onSubmit} className="space-y-5" noValidate>
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
@@ -210,8 +264,8 @@ export function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <Button type="submit" size="lg" disabled={pending} className="w-full sm:w-auto">
-                    {pending ? "Sending…" : contactSection.submit}
+                  <Button type="submit" size="lg" className="w-full sm:w-auto">
+                    {contactSection.submit}
                   </Button>
                   <p className="flex items-center gap-1.5 text-[12px] text-ink-faint">
                     <Lock className="size-3.5" aria-hidden="true" />

@@ -337,7 +337,7 @@ export const contactSection = {
     { icon: "headset", label: "Priority support", value: "Available 24x7 for live clients" },
     { icon: "rocket", label: "Go-live time", value: "One week from kickoff" },
   ],
-  submit: "Send Message",
+  submit: "Send on WhatsApp",
   note: "100% Secure & Private. We never share your details.",
 };
 
